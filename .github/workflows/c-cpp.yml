@@ -6,8 +6,8 @@ on:
 jobs:
   build:
 
-    # runs-on: windows-latest
-    runs-on: windows-2019
+    runs-on: windows-latest
+    # runs-on: windows-2019
 
     steps:
     - name: Checkout code
@@ -30,7 +30,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Build Solution
-      run: msbuild VmLoader.sln /p:Configuration=Release /p:Platform=x64
+      run: msbuild VmLoader.sln /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion=10.0.19041.0
   
     # - name: Setup MSBuild
     #   uses: microsoft/setup-msbuild@v1.1
