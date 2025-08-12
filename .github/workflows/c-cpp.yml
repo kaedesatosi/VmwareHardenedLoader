@@ -14,8 +14,10 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Restore NuGet packages
-      run: nuget restore VmLoader.sln
+    # - name: Restore NuGet packages
+    #   run: nuget restore VmLoader.sln
 
     - name: Build Solution
-      run: msbuild VmLoader.sln /p:Configuration=Release
+      # run: msbuild VmLoader.sln /p:Configuration=Release
+      run: msbuild VmLoader.sln /p:Configuration=Release /p:WindowsTargetPlatformVersion=10.0.19041.0
+
