@@ -25,22 +25,26 @@ jobs:
     #     Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2120844' -OutFile 'wdksetup.exe'
     #     # 静默安装 WDK
     #     Start-Process -FilePath 'wdksetup.exe' -ArgumentList '/install /quiet /norestart' -Wait
-    - name: Install Windows SDK and WDK
-      shell: powershell
+    # - name: Install Windows SDK and WDK
+    #   shell: powershell
+    #   run: |
+    #     # 下载适用于 Windows 11 / Server 2022 的 SDK
+    #     Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2196241' -OutFile 'winsdksetup.exe'
+    #     Start-Process -FilePath 'winsdksetup.exe' -ArgumentList '/install /quiet /norestart' -Wait
+
+    #     # 下载适用于 Windows 11 / Server 2022 的 WDK
+    #     Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2196231' -OutFile 'wdksetup.exe'
+    #     Start-Process -FilePath 'wdksetup.exe' -ArgumentList '/install /quiet /norestart' -Wait
+    - name: Install WDK Insider Preview
+      shell: pwsh
       run: |
-        # 下载适用于 Windows 11 / Server 2022 的 SDK
-        Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2196241' -OutFile 'winsdksetup.exe'
-        Start-Process -FilePath 'winsdksetup.exe' -ArgumentList '/install /quiet /norestart' -Wait
-
-        # 下载适用于 Windows 11 / Server 2022 的 WDK
-        Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2196231' -OutFile 'wdksetup.exe'
-        Start-Process -FilePath 'wdksetup.exe' -ArgumentList '/install /quiet /norestart' -Wait
-
+        choco install wdkinsiderpreview --version=10.0.25398.1000 --yes --limit-output
+        
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Build Solution
-      run: msbuild VmLoader.sln /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion=10.0.19041.0
+      run: msbuild VmLoader.sln /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion=10.0.25398.1000
   
     # - name: Setup MSBuild
     #   uses: microsoft/setup-msbuild@v1.1
